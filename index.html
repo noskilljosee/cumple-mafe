@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Feliz Cumpleaños Mafe 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ffe6f0, #ffffff);
+    text-align:center;
+    overflow:hidden;
+}
+
+/* BLOQUEO */
+#bloqueo{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:#ffb6c1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:20;
+}
+
+#contador{
+    font-size:30px;
+    color:white;
+    margin-top:20px;
+}
+
+/* CONTENIDO */
+.contenido{
+    display:none;
+    padding:40px;
+    animation:fade 2s ease-in;
+}
+
+@keyframes fade{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+/* NOMBRE ANIMADO */
+.nombre{
+    font-family:'Great Vibes', cursive;
+    font-size:70px;
+    color:#ff4d6d;
+    border-right:3px solid;
+    width:0;
+    overflow:hidden;
+    white-space:nowrap;
+    margin:auto;
+    animation:escribir 3s steps(10) forwards;
+}
+
+@keyframes escribir{
+    to{width:100%;}
+}
+
+/* MENSAJE */
+.mensaje{
+    max-width:700px;
+    margin:30px auto;
+    line-height:1.8;
+    color:#444;
+}
+
+/* PASTEL */
+.pastel{
+    margin:40px auto;
+    width:220px;
+    height:200px;
+    background:pink;
+    border-radius:20px;
+    position:relative;
+}
+
+.vela{
+    width:5px;
+    height:25px;
+    background:white;
+    position:absolute;
+    top:-25px;
+}
+
+.flama{
+    width:8px;
+    height:8px;
+    background:orange;
+    border-radius:50%;
+    position:absolute;
+    top:-30px;
+}
+
+/* GALERIA */
+h2{
+    font-family:'Great Vibes', cursive;
+    color:#ff4d6d;
+}
+
+.fotos{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:15px;
+}
+
+.fotos img{
+    width:250px;
+    border-radius:15px;
+    box-shadow:0px 5px 15px rgba(0,0,0,0.2);
+    transition:0.3s;
+}
+
+.fotos img:hover{
+    transform:scale(1.05);
+}
+
+/* FIRMA */
+.firma{
+    font-family:'Great Vibes', cursive;
+    font-size:40px;
+    color:#ff4d6d;
+    margin-top:40px;
+}
+
+/* CORAZONES */
+.corazon{
+    position:fixed;
+    animation:subir 5s linear infinite;
+}
+
+@keyframes subir{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-10vh);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSICA -->
+<audio id="musica" loop>
+<source src="https://www.myinstants.com/media/sounds/star-shopping.mp3">
+</audio>
+
+<!-- BLOQUEO -->
+<div id="bloqueo">
+    <h2>🎂 Esperando el momento especial...</h2>
+    <div id="contador"></div>
+</div>
+
+<!-- CONTENIDO -->
+<div class="contenido" id="contenido">
+
+<h1 class="nombre">Mafe 💖</h1>
+
+<div class="mensaje">
+Hola mafe, quiero pasar a dejarte este mensajito para ti. Este día tan lindo se cumplen 21 años de que llegaste a esta vida, tantas cosas buenas y algunas malas todo lo que has vivido te ha llevado hasta aquí, gracias por ser quien eres al día de hoy realmente tenerte de amistad ha sido una gran felicidad ya que estuviste en momentos donde yo no sabia que hacer y eso, pero bueno después de todo siempre te dije que estaré contigo siempre. ¡Feliz Cumpleaños Mafecita! Te deseo lo mejor y un gran amor lindo. Nunca cambies mamecita que aun pienso que eres muy linda.
+<br><br>
+Con amor 💖<br>
+-Tu amigo José.
+</div>
+
+<!-- PASTEL -->
+<div class="pastel" id="pastel"></div>
+<p style="color:#ff4d6d;">🎂 ¡Pide 21 deseos Mafecita! 🎂</p>
+
+<!-- GALERIA -->
+<h2>Momentos Felices 💕</h2>
+
+<div class="fotos">
+<img src="foto1.jpg">
+<img src="foto2.jpg">
+<img src="foto3.jpg">
+<img src="foto4.jpg">
+<img src="foto5.jpg">
+</div>
+
+<div class="firma" id="firma"></div>
+
+</div>
+
+<script>
+// FECHA: 29 MARZO 12:00 AM
+let fechaObjetivo = new Date("2026-03-29T00:00:00").getTime();
+
+let contador = document.getElementById("contador");
+
+let intervalo = setInterval(()=>{
+    let ahora = new Date().getTime();
+    let distancia = fechaObjetivo - ahora;
+
+    let horas = Math.floor((distancia%(1000*60*60*24))/(1000*60*60));
+    let minutos = Math.floor((distancia%(1000*60*60))/(1000*60));
+    let segundos = Math.floor((distancia%(1000*60))/1000);
+
+    contador.innerHTML = horas+"h "+minutos+"m "+segundos+"s";
+
+    if(distancia < 0){
+        clearInterval(intervalo);
+        document.getElementById("bloqueo").style.display="none";
+        document.getElementById("contenido").style.display="block";
+        document.getElementById("musica").play();
+
+        escribirFirma();
+    }
+},1000);
+
+// FIRMA ANIMADA
+function escribirFirma(){
+    let texto = "- Tu amigo José 💖";
+    let i = 0;
+    let elemento = document.getElementById("firma");
+
+    let inter = setInterval(()=>{
+        elemento.innerHTML += texto.charAt(i);
+        i++;
+        if(i >= texto.length){
+            clearInterval(inter);
+        }
+    },100);
+}
+
+// VELAS
+let pastel = document.getElementById("pastel");
+for(let i=0;i<21;i++){
+    let vela = document.createElement("div");
+    vela.className="vela";
+    vela.style.left=(i*9)+"px";
+
+    let flama = document.createElement("div");
+    flama.className="flama";
+
+    vela.appendChild(flama);
+    pastel.appendChild(vela);
+}
+
+// CORAZONES
+setInterval(()=>{
+    let corazon = document.createElement("div");
+    corazon.className="corazon";
+    corazon.innerHTML="💖";
+    corazon.style.left=Math.random()*100+"vw";
+    corazon.style.fontSize="25px";
+
+    document.body.appendChild(corazon);
+    setTimeout(()=>corazon.remove(),5000);
+},400);
+</script>
+
+</body>
+</html>
